@@ -1,0 +1,19 @@
+#python
+    f = open('monster_game.txt', encoding='utf-8')
+    f2 = open('list.txt', 'w', encoding='utf-8')
+    data = [] # список, который просят составить
+    arr = list(f.readlines()[1:])
+    d = {}
+    for i in arr:
+    exp = 0 # переменная опыта
+    dt = i.split('$')
+    # рассматриваем разные возможности и считает опыт
+    if dt[1] == 'усиление атаки':
+        exp = int(dt[3]) * 1.5 + int(dt[4]) + int(dt[5]) + int(dt[6])
+    elif dt[1] == 'регенерация':
+        exp = int(dt[3])+ int(dt[4]) + int(dt[5]) * 1.5 + int(dt[6])
+    elif dt[1] == 'дополнительный ход':
+        exp = int(dt[3]) + int(dt[4]) + int(dt[5]) + int(dt[6]) * 1.5
+    data.append((dt[0], exp)) # добавление данных в список
+for i in range(10):
+    print(data[i][0] + ',' + ' ' + str(data[i][1]), file=f2) # печать в файл

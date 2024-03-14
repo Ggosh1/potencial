@@ -1,0 +1,15 @@
+#python
+f = open('monster_game.txt', encoding='utf-8')
+f2 = open('search.txt', 'w', encoding='utf-8')
+arr = list(f.readlines()[1:])
+d = {}
+for i in arr:
+    dt = i.split('$')
+    d[dt[0]] = dt[1:] #добавление данных в словарь {имя: [данные]}
+req = input()
+while req != 'мир':
+    if req in d.keys(): # поиск в словаре
+        print(f'{req}: {d[req][2]}, {d[req][3]}, {d[req][4]}, {int(d[req][5])}', file=f2)
+    else: # ничего не наши
+        print('Ого, вам попался новый монстр! БЕГИТЕ!', file=f2)
+    req = input() # считываем запрос

@@ -1,0 +1,13 @@
+#python
+f = open('monster_game.txt', encoding='utf-8')
+f2 = open('table.txt', 'w', encoding='utf-8')
+arr = list(f.readlines()[1:]) # считывание данных
+d = {} # словарь {имя: сумма атак}
+for i in arr:
+    dt = i.split('$')
+    if dt[0] in d.keys(): # если уже есть в словаре, добавляем атаку
+        d[dt[0]] += int(dt[3])
+    else:
+        d[dt[0]] = int(dt[3]) # иначе создаем значение в словаре
+for i in range(10):
+    print(list(d.keys())[i], d[list(d.keys())[i]], file=f2) # вывод
