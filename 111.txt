@@ -1,0 +1,23 @@
+#python
+f = open('monster_game.txt', encoding='utf-8')
+f2 = open('power.txt', 'w', encoding='utf-8') # файл вывода
+f.readline()
+import csv
+ct = 1 # счетчик для вывода 5 строк
+with open("monster_opportunity.csv", mode="w", encoding='utf-8') as w_file: # создание csv
+    file_writer = csv.writer(w_file, delimiter = ",")
+    file_writer.writerow(["MonsterName", "opportunity", "power"]) # заголовочная строка
+    for i in f: # обход по файлу с монстрами
+        dt = i.split('$')
+        # рассчет мощности
+        if dt[1] == 'усиление атаки':
+            pow = int(dt[2]) * int(dt[3]) / 100
+        elif dt[1] == 'регенерация':
+            pow = int(dt[2]) * int(dt[5]) / 100
+        elif dt[1] == 'дополнительный ход':
+            pow = int(dt[2]) / 100 * (int(dt[3]) + int(dt[4]) + int(dt[5]) + int(dt[6]))
+        pow = round(pow, 3) # округление до 3х знаков
+        file_writer.writerow([dt[0], dt[1], pow]) # вносим в csv
+        if ct <= 5:
+            print(pow, file=f2) # печать первых 5 монстров
+            ct += 1
