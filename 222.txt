@@ -1,0 +1,14 @@
+#python
+f = open('monster_game.txt', encoding='utf-8')
+f2 = open('sorted.txt', 'w', encoding='utf-8')  # файл вывода
+arr = list(f.readlines()[1:]) # считываем даные
+ct = 1 # счетчик для вывода
+while ct <= 5:
+    mi = 0
+    for i in range(len(arr)): # проход по фалу
+        op = arr[i].split('$')[1]
+        if op < arr[mi][1]: # выявление минимальной возможности
+            mi = i
+    ct += 1
+    print(arr[mi].split('$')[0], 'имеет возможность:', arr[mi].split('$')[1], file=f2) # вывод в файл
+    arr.pop(mi) # удаляем минимальный
